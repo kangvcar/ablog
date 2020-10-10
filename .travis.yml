@@ -2,12 +2,11 @@ sudo: false
 language: go
 env:
     global:
-      - GO111MODULE=on
       - HUGO_BUILD_TAGS=extended
 git:
     depth: 1
 go:
-    - master
+    - "1.15.1"
 install: go get -v github.com/gohugoio/hugo
 script: hugo
 deploy:
