@@ -1,23 +1,45 @@
 sudo: false
 language: go
+git:
+    depth: false
+go:
+    - "1.11"
+branches:
+    only:
+        - sourcefiles
 env:
     global:
-      - HUGO_BUILD_TAGS=extended
-git:
-    depth: 1
-go:
-    - "1.15.1"
-install: go get -v github.com/gohugoio/hugo
-script: hugo
+    - SOURCE_DIR="public"
+    - BUILD_BRANCH="sourcefiles"
+    - DEPLOY_BRANCH="master"
+    - HUGO_BUILD_TAGS="extended"
+install:
+    - mkdir -p $HOME/src
+    - mv $HOME/gopath/src/github.com/gohugoio/hugo $HOME/src
+    - export TRAVIS_BUILD_DIR=$HOME/src/hugo
+    - cd $HOME/src/hugo
+    - go get github.com/magefile/mage  
+script:
+    - go mod download
+    - mage -v test
+    - mage -v check
+    - mage -v hugo
+    - ./hugo 
 deploy:
     provider: pages
-    skip_cleanup: true
+    edge: true
     github_token: $token
+    local_dir: public
+    skip_cleanup: true
+    target_branch: master
     on:
-        branch: master
+        branch: sourcefiles
     local_dir: public
     repo: kangvcar/kangvcar.github.io
     fqdn: https://kangvcar.github.io
     target_branch: master
     email: kangvcar@126.com
     name: kangvcar
+before_install:
+    - gem install asciidoctor
+    - type asciidoctor 
