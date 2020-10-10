@@ -7,12 +7,12 @@ script: hugo
 deploy:
     provider: pages
     skip_cleanup: true
-    github_token: a076fbb256280cccd4e5578f154ffabc95d2af23
+    github_token: $token
     on:
         branch: master
     local_dir: public
     repo: kangvcar/kangvcar.github.io
-    fqdn: <custom-domain-if-needed>
+    fqdn: https://kangvcar.github.io
     target_branch: master
     email: kangvcar@126.com
     name: kangvcar
