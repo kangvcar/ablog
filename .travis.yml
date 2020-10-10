@@ -1,0 +1,18 @@
+sudo: false
+language: go
+git:
+    depth: 1
+install: go get -v github.com/gohugoio/hugo
+script: hugo
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: a076fbb256280cccd4e5578f154ffabc95d2af23
+    on:
+        branch: master
+    local_dir: public
+    repo: kangvcar/kangvcar.github.io
+    fqdn: <custom-domain-if-needed>
+    target_branch: master
+    email: kangvcar@126.com
+    name: kangvcar
