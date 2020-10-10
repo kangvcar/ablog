@@ -3,7 +3,6 @@ language: go
 env:
     global:
       - GO111MODULE=on
-      - GOPROXY=https://proxy.golang.org
       - HUGO_BUILD_TAGS=extended
 git:
     depth: 1
